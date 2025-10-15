@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/CaioGitHub/CaioGitHub/blob/main/banner.png" alt="Banner Caio Victor" width="100%" />
+  <img src="https://github.com/CaioGitHub/CaioGitHub/blob/main/banner-caio.png" alt="Banner Caio Victor" width="100%" />
 </p>
 
 <h1 align="center">👋 Olá, eu sou o Caio Victor</h1>
@@ -17,7 +17,7 @@
 
 ### 🧠 Tech Stack
 <div align="center">
-  <img src="https://skillicons.dev/icons?i=java,spring,cs,angular,html,css,js,postgres,mysql,docker,kubernetes,git,github,aws" />
+  <img src="https://skillicons.dev/icons?i=java,spring,cs,angular,react,flutter,kotlin,objectivec,html,css,js,postgres,mysql,docker,kubernetes,git,github,aws" />
 </div>
 
 ---
@@ -32,7 +32,7 @@
 
 ### 🏆 Atividade e Conquistas
 <div align="center">
-  <img src="https://streak-stats.demolab.com?user=CaioGitHub&theme=tokyonight&hide_border=true" alt="GitHub Streak"/>
+  <img src="https://github-readme-streak-stats.herokuapp.com?user=CaioGitHub&theme=tokyonight&hide_border=true" alt="GitHub Streak"/>
   <br><br>
   <img src="https://github-profile-trophy.vercel.app/?username=CaioGitHub&theme=tokyonight&no-frame=true&margin-w=15" alt="GitHub Trophies"/>
 </div>
