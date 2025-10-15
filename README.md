@@ -32,7 +32,7 @@
 
 ### 🏆 Atividade e Conquistas
 <div align="center">
-  <img src="https://raw.githubusercontent.com/DenverCoder1/github-readme-streak-stats/master/docs/streak-stats.png?user=CaioGitHub&theme=tokyonight&hide_border=true&v=1" alt="GitHub Streak"/>
+  <img src="https://raw.githubusercontent.com/CaioGitHub/CaioGitHub/main/assets/streak.png?v=1" alt="GitHub Streak"/>
   <br><br>
   <img src="https://github-profile-trophy.vercel.app/?username=CaioGitHub&theme=tokyonight&no-frame=true&margin-w=15" alt="GitHub Trophies"/>
 </div>
