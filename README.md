@@ -24,11 +24,11 @@
 ### 🧩 Projetos em destaque
 - 🚑 [Agendamento Médico](https://github.com/CaioGitHub/agendamento-medico-hub): microsserviços com Spring Boot, API Gateway e front em JS  
 - 🛒 [Sistema de Compras](https://github.com/CaioGitHub/sistemacompras): arquitetura hexagonal com RabbitMQ e Docker Compose  
-- 💰 [Investimentos App](https://github.com/CaioGitHub/investimentos): integração com Brapi API e interface em Thymeleaf  
+- 💰 [Investimentos App](https://github.com/CaioGitHub/InvestPlus): integração com Brapi API e interface em Thymeleaf  
 
 ---
 
 ### 🌐 Conecte-se comigo
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&logoColor=white)](https://linkedin.com/in/seu-link)
-[![Gmail](https://img.shields.io/badge/Gmail-red?style=flat&logo=gmail&logoColor=white)](mailto:seuemail@gmail.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin&logoColor=white)](https://linkedin.com/in/caio-victor-036315169)
+[![Gmail](https://img.shields.io/badge/Gmail-red?style=flat&logo=gmail&logoColor=white)](mailto:caiopvasconcelos@gmail.com)
 [![Portfolio](https://img.shields.io/badge/Portfolio-black?style=flat&logo=githubpages&logoColor=white)](https://caio.github.io/)
