@@ -34,7 +34,7 @@
 <div align="center">
   <img src="https://streak-stats.demolab.com?user=CaioGitHub&theme=tokyonight&hide_border=true" alt="GitHub Streak"/>
   <br><br>
-  <img src="https://github-profile-trophy.vercel.app/?username=CaioGitHub&theme=tokyonight&no-frame=true&margin-w=10" />
+  <img src="https://github-profile-trophy.vercel.app/?username=CaioGitHub&theme=tokyonight&no-frame=true&margin-w=15" alt="GitHub Trophies"/>
 </div>
 
 ---
