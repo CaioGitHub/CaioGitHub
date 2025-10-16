@@ -5,6 +5,9 @@ on:
     - cron: "0 6 * * *"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   fetch-streak:
     runs-on: ubuntu-latest
@@ -12,22 +15,29 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Criar pasta assets
         run: mkdir -p assets
 
-      - name: Baixar streak card atualizado
+      - name: Baixar streak card atualizado (SVG)
         run: |
-          curl -L "https://streak-stats.demolab.com?user=CaioGitHub&theme=tokyonight&hide_border=true" -o assets/streak.svg
+          curl -fL --retry 3 --connect-timeout 10 \
+            "https://streak-stats.demolab.com?user=CaioGitHub&theme=tokyonight&hide_border=true" \
+            -o assets/streak.svg
 
-      - name: Commit se houver alterações
+      - name: Commit e Push se houver alterações
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
           if [ -n "$(git status --porcelain)" ]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add assets/streak.svg
             git commit -m "chore: update streak card"
-            git push
+            git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" HEAD:main
           else
             echo "✅ Sem alterações a serem commitadas"
           fi
