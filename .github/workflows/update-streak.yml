@@ -48,8 +48,14 @@ jobs:
             git commit -m "chore: update streak card"
 
             echo "🚀 Enviando atualização para o GitHub..."
-            git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" HEAD:main || \
-            (echo "⚠️ Conflito detectado, forçando push seguro..." && git fetch origin main && git rebase origin/main && git push --force-with-lease "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" HEAD:main)
+            git fetch origin main
+            git rebase origin/main || echo "⚠️ Nenhum rebase necessário"
+            
+            # 🚀 Push forçado com segurança
+            git push --force-with-lease "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" HEAD:main
+            
+            echo "✅ Atualização enviada com sucesso!"
           else
             echo "✅ Sem alterações a serem commitadas"
           fi
+
