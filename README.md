@@ -77,3 +77,7 @@
 ---
 
 ### ✨ “Sempre buscando a melhor versão de mim — no código e na vida.” ✨
+
+---
+
+![Última atualização](https://img.shields.io/badge/🕒%20Última%20atualização-16/10/2025%2009:38-(Brasília)-blue?style=for-the-badge)
