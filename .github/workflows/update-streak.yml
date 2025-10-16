@@ -2,7 +2,7 @@ name: Update Streak Card
 
 on:
   schedule:
-    - cron: "0 6 * * *"
+    - cron: "0 6 * * *"      # 06:00 UTC diariamente
   workflow_dispatch:
 
 permissions:
@@ -17,45 +17,41 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0
+          fetch-depth: 0                   # necessário para pull/rebase
 
-      - name: Configurar Git
+      - name: Configurar Git e remote com token
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config user.name "github-actions[bot]"
+          git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # 🔑 garanta que o 'origin' já use o token (evita push por URL avulsa)
+          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
 
-      - name: Atualizar branch local
+      - name: Sincronizar branch main
         run: |
+          git checkout main || echo "Já na main"
           git fetch origin main
-          git rebase origin/main || git rebase --abort
-          echo "✅ Branch sincronizada com origin/main"
+          git pull --rebase origin main     # fica 100% alinhado com o remoto
 
       - name: Criar pasta assets
         run: mkdir -p assets
 
-      - name: Baixar streak card atualizado (SVG)
+      - name: Baixar streak card (SVG)
         run: |
           curl -fL --retry 3 --connect-timeout 10 \
             "https://streak-stats.demolab.com?user=CaioGitHub&theme=tokyonight&hide_border=true" \
             -o assets/streak.svg
 
-      - name: Commit e Push se houver alterações
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit e push apenas se mudou
         run: |
-          if [ -n "$(git status --porcelain)" ]; then
-            git status
-            git add .
+          # só commitar se o arquivo realmente mudou
+          if ! git diff --quiet -- assets/streak.svg; then
+            git add assets/streak.svg
             git commit -m "chore: update streak card"
-
-            echo "🚀 Enviando atualização para o GitHub..."
-            git fetch origin main
-            git checkout main || echo "⚙️ Já na branch main"
-            git pull origin main --rebase
-            git push --force-with-lease "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" main
-
+            # 💡 agora o lease funciona, pois empurramos para o *remote* origin
+            git push --force-with-lease origin HEAD:main
             echo "✅ Atualização enviada com sucesso!"
           else
-            echo "✅ Sem alterações a serem commitadas"
+            echo "✅ Sem alterações reais no streak.svg"
           fi
-
