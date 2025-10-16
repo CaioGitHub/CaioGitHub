@@ -45,7 +45,7 @@ jobs:
         run: |
           if [ -n "$(git status --porcelain)" ]; then
             git status
-            git add assets/streak.svg
+            git add .
             git commit -m "chore: update streak card"
 
             echo "🚀 Enviando atualização para o GitHub..."
