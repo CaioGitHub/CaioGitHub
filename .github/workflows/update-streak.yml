@@ -49,11 +49,10 @@ jobs:
 
             echo "🚀 Enviando atualização para o GitHub..."
             git fetch origin main
-            git rebase origin/main || echo "⚠️ Nenhum rebase necessário"
-            
-            # 🚀 Push forçado com segurança
-            git push --force-with-lease "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" HEAD:main
-            
+            git checkout main || echo "⚙️ Já na branch main"
+            git pull origin main --rebase
+            git push --force-with-lease "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" main
+
             echo "✅ Atualização enviada com sucesso!"
           else
             echo "✅ Sem alterações a serem commitadas"
