@@ -13,11 +13,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout completo
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
+
+      - name: Configurar Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Atualizar branch local
+        run: |
+          git fetch origin main
+          git rebase origin/main || git rebase --abort
+          echo "✅ Branch sincronizada com origin/main"
 
       - name: Criar pasta assets
         run: mkdir -p assets
@@ -32,17 +43,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          
           if [ -n "$(git status --porcelain)" ]; then
             git add assets/streak.svg
             git commit -m "chore: update streak card"
 
-            echo "🔄 Atualizando branch local com o remoto..."
-            git pull --rebase origin main
-            echo "🚀 Enviando atualização..."
-            git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" HEAD:main
+            echo "🚀 Enviando atualização para o GitHub..."
+            git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" HEAD:main || \
+            (echo "⚠️ Conflito detectado, forçando push seguro..." && git fetch origin main && git rebase origin/main && git push --force-with-lease "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" HEAD:main)
           else
             echo "✅ Sem alterações a serem commitadas"
           fi
