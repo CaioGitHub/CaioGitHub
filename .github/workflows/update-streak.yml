@@ -2,7 +2,7 @@ name: Update Streak Card
 
 on:
   schedule:
-    - cron: "0 6 * * *"      # 06:00 UTC diariamente
+    - cron: "0 6 * * *"      # 06:00 UTC = 03:00 no Brasil
   workflow_dispatch:
 
 permissions:
@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0                   # necessário para pull/rebase
+          fetch-depth: 0
 
       - name: Configurar Git e remote com token
         env:
@@ -25,14 +25,13 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # 🔑 garanta que o 'origin' já use o token (evita push por URL avulsa)
           git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
 
       - name: Sincronizar branch main
         run: |
           git checkout main || echo "Já na main"
           git fetch origin main
-          git pull --rebase origin main     # fica 100% alinhado com o remoto
+          git pull --rebase origin main
 
       - name: Criar pasta assets
         run: mkdir -p assets
@@ -43,15 +42,28 @@ jobs:
             "https://streak-stats.demolab.com?user=CaioGitHub&theme=tokyonight&hide_border=true" \
             -o assets/streak.svg
 
-      - name: Commit e push apenas se mudou
+      - name: Atualizar badge de última atualização no README
         run: |
-          # só commitar se o arquivo realmente mudou
-          if ! git diff --quiet -- assets/streak.svg; then
-            git add assets/streak.svg
-            git commit -m "chore: update streak card"
-            # 💡 agora o lease funciona, pois empurramos para o *remote* origin
+          DATE=$(TZ="America/Sao_Paulo" date '+%d/%m/%Y %H:%M')
+          BADGE="![Última atualização](https://img.shields.io/badge/🕒%20Última%20atualização-${DATE// /%20}-(Brasília)-blue?style=for-the-badge)"
+          
+          # Substitui a linha da badge no README (ou adiciona se não existir)
+          if grep -q "Última atualização" README.md; then
+            sed -i "s|!\[Última atualização\].*|$BADGE|" README.md
+          else
+            echo -e "\n---\n\n$BADGE" >> README.md
+          fi
+
+      - name: Commit e Push se houver alterações
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if ! git diff --quiet; then
+            DATE=$(TZ="America/Sao_Paulo" date '+%d/%m/%Y %H:%M')
+            git add assets/streak.svg README.md
+            git commit -m "📈 Atualizando streak diário - ${DATE} (Brasília)"
             git push --force-with-lease origin HEAD:main
             echo "✅ Atualização enviada com sucesso!"
           else
-            echo "✅ Sem alterações reais no streak.svg"
+            echo "✅ Sem alterações reais no streak.svg ou README.md"
           fi
