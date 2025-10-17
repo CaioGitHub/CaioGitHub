@@ -43,7 +43,7 @@
 - 🚑 **[Agendamento Médico](https://github.com/CaioGitHub/agendamento-medico-hub)** — microsserviços com Spring Boot, API Gateway e front em JavaScript  
 - 🛒 **[Sistema de Compras](https://github.com/CaioGitHub/sistemacompras)** — arquitetura hexagonal com RabbitMQ e Docker Compose  
 - 💰 **[Investimentos App](https://github.com/CaioGitHub/InvestPlus)** — integração com Brapi API e interface em Thymeleaf
-- ⚔️ **[Cadastro de Itens Mágicos e Personagens](https://github.com/CaioGitHub/cadastro-magico)** — aplicação Angular com tema medieval para cadastrar personagens e itens mágicos inspirados em RPG  
+- ⚔️ **[Cadastro de Itens Mágicos e Personagens](https://github.com/CaioGitHub/Cadastro-Magicos)** — aplicação Angular com tema medieval para cadastrar personagens e itens mágicos inspirados em RPG  
 
 ---
 
