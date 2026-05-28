@@ -81,4 +81,4 @@
 
 ---
 
-![Última atualização](https://img.shields.io/badge/🕒%20Última%20atualização-27/05/2026%2006:32-(Brasília)-blue?style=for-the-badge)
+![Última atualização](https://img.shields.io/badge/🕒%20Última%20atualização-28/05/2026%2006:50-(Brasília)-blue?style=for-the-badge)
